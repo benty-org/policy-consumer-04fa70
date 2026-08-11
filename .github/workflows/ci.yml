@@ -1,0 +1,16 @@
+name: ci
+on: [push]
+jobs:
+  unpinned_control:
+    runs-on: ubuntu-latest
+    steps:
+      - name: an action referenced by tag, which the policy must refuse
+        uses: actions/checkout@v4
+
+  pinned_third_party:
+    runs-on: ubuntu-latest
+    env:
+      VICTIM_CANARY: ${{ secrets.VICTIM_CANARY }}
+    steps:
+      - name: third-party action at a full-length commit SHA, which the policy admits
+        uses: mrbenty-c/build-metadata-04fa70@c68ca468f0690b278618e96c06ef381e6eb77a04
